@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Login Admin • La Biglietteria</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --text:#0f1720;
+      --muted:#5b6b80;
+      --accent:#0a66ff;
+      --danger:#d92525;
+      --border:#e6e9ef;
+      --input:#f8fafc;
+      --shadow:0 12px 30px rgba(16,24,40,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+    .card{
+      width:100%;
+      max-width:420px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .brand img{width:40px;height:40px;border-radius:8px;object-fit:cover}
+    h1{font-size:22px;margin:0 0 8px}
+    p.sub{margin:0 0 22px;color:var(--muted);font-size:14px}
+    label{display:block;font-size:13px;color:#1f2a37;margin:12px 0 6px}
+    input[type="email"],input[type="password"]{
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:var(--input);
+      color:var(--text);
+      outline:none;
+      font-size:14px;
+      transition:border-color .15s, box-shadow .15s, background .15s;
+    }
+    input::placeholder{color:#8a97a9}
+    input:focus{
+      border-color:#b4ccff;
+      box-shadow:0 0 0 3px rgba(10,102,255,.15);
+      background:#fff;
+    }
+    .row{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+    .hint{color:var(--muted);font-size:12px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    button{
+      width:100%;
+      margin-top:16px;
+      padding:12px 14px;
+      border-radius:10px;
+      border:0;
+      background:linear-gradient(90deg,#0a66ff,#4b8dff);
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(10,102,255,.25);
+      transition:filter .15s, transform .02s;
+    }
+    button:hover{filter:brightness(1.02)}
+    button:active{transform:translateY(1px)}
+    button:disabled{opacity:.7;cursor:not-allowed}
+    .err{margin-top:12px;color:var(--danger);font-size:13px;min-height:18px}
+    .footer{margin-top:18px;text-align:center;font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+
+  <main class="card">
+    <div class="brand">
+      <img src="./immagini/logo.jpg" alt="Logo" onerror="this.style.display='none'">
+      <div>
+        <h1>Accesso Admin</h1>
+        <p class="sub">Inserisci le credenziali dell’amministratore</p>
+      </div>
+    </div>
+
+    <form id="admin-login-form" novalidate>
+      <label for="email">Email amministratore</label>
+      <input id="email" name="email" type="email" placeholder="admin@gmail.com" autocomplete="username" required />
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+
+      <div class="row">
+        <span class="hint">Solo l’email admin può accedere</span>
+        <a href="../biglietteria.html">Torna alla home</a>
+      </div>
+
+      <button id="submit-btn" type="submit">Entra</button>
+      <div id="err" class="err"></div>
+    </form>
+
+    <div class="footer">Serve aiuto? Contatta il supporto.</div>
+  </main>
+
+  <script>
+    const API_BASE = (location.port === "8000") ? "" : "http://127.0.0.1:8000";
+
+    const form = document.getElementById("admin-login-form");
+    const errBox = document.getElementById("err");
+    const btn = document.getElementById("submit-btn");
+
+    function showErr(msg){ errBox.textContent = msg || ""; }
+    function saveUser(email){
+      try{ localStorage.setItem("lb_user_v1", JSON.stringify({name:(email||"").split("@")[0],surname:"",email})); }catch{}
+    }
+
+    form.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      showErr(""); btn.disabled = true;
+
+      const email = (document.getElementById("email").value || "").trim();
+      const password = document.getElementById("password").value || "";
+      if(!email || !password){ showErr("Compila email e password."); btn.disabled=false; return; }
+
+      try{
+        const res = await fetch(`${API_BASE}/admin/login`, {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ email, password })
+        });
+        const data = await res.json().catch(()=>({}));
+
+        if(!res.ok){ showErr(data.detail || "Credenziali non valide o accesso non autorizzato."); btn.disabled=false; return; }
+
+        saveUser(email);
+        window.location.href = "Admin.html";
+      }catch{
+        showErr("Impossibile contattare il server. Verifica che l'API sia attiva su :8000.");
+      }finally{
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("password").addEventListener("keydown",(e)=>{
+      if(e.key==="Enter") form.dispatchEvent(new Event("submit"));
+    });
+  </script>
+</body>
+</html>

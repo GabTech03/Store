@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Amministrazione</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="../biglietteria.html" class="logo-link">
+             <img src="immagini/logo.jpg" alt="Logo del sito" class="logo">
+            </a>
+
+        </nav>
+    </header>
+
+    <main class="admin-container">
+        <h1>Area Amministrazione</h1>
+
+        <section class="admin-section" id="create-event-section">
+            <h2>Aggiungi un Nuovo Evento</h2>
+            <form id="admin-create-event-form" class="event-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="admin-event-name">Nome Evento</label>
+                    <input type="text" id="admin-event-name" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-event-date">Data</label>
+                    <input type="date" id="admin-event-date" name="data_ev" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-event-time">Ora</label>
+                    <input type="time" id="admin-event-time" name="ora_ev" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-event-location">Luogo (ID)</label>
+                    <input type="number" id="admin-event-location" name="luogo_id" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-event-prices">Fasce di Prezzo (JSON)</label>
+                    <textarea id="admin-event-prices" name="fasce_prezzo" rows="4" required placeholder='Es: [{"fascia": "Platea A", "prezzo": 50.0}, {"fascia": "Platea B", "prezzo": 40.0}]'></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="admin-event-image">Immagine</label>
+                    <input type="file" id="admin-event-image" name="immagine" accept="image/*" required>
+                </div>
+                <button type="submit">Crea Evento</button>
+            </form>
+        </section>
+
+        <section class="admin-section" id="manage-events-section">
+            <h2>Gestisci Eventi Esistenti</h2>
+            <ul class="event-list" id="admin-event-list">
+                <li class="event-list-item" data-event-id="123">
+                    <div class="event-info">
+                        <strong>Concerto di Musica Classica</strong>
+                        <p>Data: 25/12/2025 | Luogo: Teatro Grande</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="edit-btn">Modifica</button>
+                        <button class="delete-btn">Elimina</button>
+                    </div>
+                </li>
+                 <li class="event-list-item" data-event-id="124">
+                    <div class="event-info">
+                        <strong>Festival Rock</strong>
+                        <p>Data: 10/01/2026 | Luogo: Stadio del Rock</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="edit-btn">Modifica</button>
+                        <button class="delete-btn">Elimina</button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="admin-section hidden" id="edit-event-section">
+            <h2>Modifica Evento</h2>
+            <form id="admin-edit-event-form" class="event-form" enctype="multipart/form-data">
+                <input type="hidden" id="edit-event-id" name="id">
+                <div class="form-group">
+                    <label for="edit-event-name">Nome Evento</label>
+                    <input type="text" id="edit-event-name" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-event-date">Data</label>
+                    <input type="date" id="edit-event-date" name="data_ev" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-event-time">Ora</label>
+                    <input type="time" id="edit-event-time" name="ora_ev" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-event-location">Luogo (ID)</label>
+                    <input type="number" id="edit-event-location" name="luogo_id" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-event-prices">Fasce di Prezzo (JSON)</label>
+                    <textarea id="edit-event-prices" name="fasce_prezzo" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-event-image">Immagine (lascia vuoto per non cambiare)</label>
+                    <input type="file" id="edit-event-image" name="immagine" accept="image/*">
+                </div>
+                <button type="submit">Salva Modifiche</button>
+                <button type="button" id="cancel-edit-btn">Annulla</button>
+            </form>
+        </section>
+
+    </main>
+
+
+    <script src="admin.js"></script>
+</body>
+</html>

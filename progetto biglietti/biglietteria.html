@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Biglietteria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+
+
+
+
+
+<body>
+
+    <header>
+        <nav>
+            <a href="biglietteria.html" class="logo-link">
+            <img src="immagini/logo.jpg" alt="Logo del sito" class="logo">
+
+
+
+
+
+            </a>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Cerca...">
+                <button id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="#" class="nav-link" id="info-link">Info</a>
+                <a href="#" id="login-link" class="nav-link">Login</a>
+            </div>
+
+            <a href="#" id="cart-icon" class="nav-link">
+                <i class="fa-solid fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </a>
+
+            <div id="user-profile" class="user-profile hidden">
+                <div class="user-circle">
+                    <span id="user-initial"></span>
+                </div>
+                <div class="user-menu">
+                    <a href="#" id="personal-info-link">Informazioni Personali</a>
+                    <a href="#" id="my-tickets-link">I Miei Biglietti</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="filters-section">
+            <h1>Eventi da non perdere</h1>
+            <div class="filter-buttons">
+                <button class="filter-btn primary"><i class="fa-solid fa-calendar-day"></i><span>Oggi</span></button>
+                <button class="filter-btn secondary"><i class="fa-solid fa-calendar-week"></i><span>Domani</span></button>
+                <button class="filter-btn tertiary"><i class="fa-solid fa-calendar-alt"></i><span>Questo fine settimana</span></button>
+                <button class="filter-btn quaternary"><i class="fa-solid fa-calendar-plus"></i><span>Mostra tutto</span></button>
+            </div>
+        </section>
+
+        <section class="suggestions-section">
+            <h2>I nostri suggerimenti</h2>
+            <p>Scopri le novità del momento.</p>
+            <div class="events-grid" id="events-grid">
+                </div>
+        </section>
+
+        <section class="reviews-section">
+            <h2>Dicono di noi</h2>
+            <p>Lascia una recensione e facci sapere la tua esperienza.</p>
+            <div class="review-form-container">
+                <h3>Scrivi una recensione</h3>
+                <form id="review-form">
+                    <div class="form-group">
+                        <label for="review-name">Nome:</label>
+                        <input type="text" id="review-name" name="review-name" required>
+                    </div>
+                    <div class="form-group rating-group">
+                        <label for="review-rating">Valutazione:</label>
+                        <select id="review-rating" name="review-rating" required>
+                            <option value="5">5 Stelle</option>
+                            <option value="4">4 Stelle</option>
+                            <option value="3">3 Stelle</option>
+                            <option value="2">2 Stelle</option>
+                            <option value="1">1 Stella</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-text">Recensione:</label>
+                        <textarea id="review-text" name="review-text" rows="4" required></textarea>
+                    </div>
+                    <button type="submit">Invia recensione</button>
+                </form>
+            </div>
+
+            <div class="reviews-display-wrapper">
+                <div class="reviews-list" id="reviews-list">
+                    <div class="review-card">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" alt="Foto di Marco Rossi" class="reviewer-img">
+                        <div class="review-content">
+                            <span class="review-author">Marco Rossi</span>
+                            <div class="review-rating" data-rating="5"></div>
+                            <p class="review-text">Esperienza incredibile! Il sito è facile da usare e ho trovato i biglietti in pochi click.</p>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <img src="https://source.unsplash.com/random/400x400/?face&sig=1" class="reviewer-img">
+                        <div class="review-content">
+                            <span class="review-author">Laura Bianchi</span>
+                            <div class="review-rating" data-rating="4"></div>
+                            <p class="review-text">Ottima selezione di eventi. Forse qualche evento in più nella mia zona sarebbe fantastico!</p>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <img src="https://source.unsplash.com/random/400x400/?face&sig=2" class="reviewer-img">
+                        <div class="review-content">
+                            <span class="review-author">Giulia Verdi</span>
+                            <div class="review-rating" data-rating="5"></div>
+                            <p class="review-text">Adoro questo sito! Ho comprato i biglietti per il festival musicale e non vedo l'ora.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="event-details-page" class="hidden">
+        <button id="back-to-home">
+            <i class="fa-solid fa-arrow-left"></i> Torna alla Home
+        </button>
+        <div class="event-details-container">
+            <img id="details-event-img" src="" alt="Immagine evento">
+            <div class="details-content">
+                <h2 id="details-event-title"></h2>
+                <div class="details-info">
+                    <p><i class="fa-solid fa-calendar-alt"></i> <strong>Data:</strong> <span id="details-event-dates"></span></p>
+                    <p><i class="fa-solid fa-clock"></i> <strong>Orario:</strong> <span id="details-event-time"></span></p>
+                    <p><i class="fa-solid fa-map-marker-alt"></i> <strong>Luogo:</strong> <span id="details-event-location"></span></p>
+                </div>
+                <div id="details-price-container">
+                    </div>
+                <button id="details-buy-btn" class="event-btn primary">Acquista Biglietto</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="create-event-page" class="hidden">
+        <button id="back-to-home-from-create">
+            <i class="fa-solid fa-arrow-left"></i> Torna alla Home
+        </button>
+        <h2>Crea un Nuovo Evento</h2>
+        <form id="create-event-form" class="event-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="event-name">Nome Evento</label>
+                <input type="text" id="event-name" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="event-date">Data</label>
+                <input type="date" id="event-date" name="data_ev" required>
+            </div>
+            <div class="form-group">
+                <label for="event-time">Ora</label>
+                <input type="time" id="event-time" name="ora_ev" required>
+            </div>
+            <div class="form-group">
+                <label for="event-location">Luogo (ID)</label>
+                <input type="number" id="event-location" name="luogo_id" required>
+            </div>
+            <div class="form-group">
+                <label for="event-prices">Fasce di Prezzo (JSON)</label>
+                <textarea id="event-prices" name="fasce_prezzo" rows="4" required placeholder='Es: [{"fascia": "Platea A", "prezzo": 50.0}, {"fascia": "Platea B", "prezzo": 40.0}]'></textarea>
+            </div>
+            <div class="form-group">
+                <label for="event-image">Immagine</label>
+                <input type="file" id="event-image" name="immagine" accept="image/*" required>
+            </div>
+            <button type="submit">Crea Evento</button>
+        </form>
+    </section>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Accedi</button>
+            </form>
+            <a href="#" id="open-register">Non hai un account? Registrati</a>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Registrazione</h2>
+            <form id="register-form">
+                <label for="reg-name">Nome:</label>
+                <input type="text" id="reg-name" required>
+                <label for="reg-surname">Cognome:</label>
+                <input type="text" id="reg-surname" required>
+                <label for="reg-email">Email:</label>
+                <input type="email" id="reg-email" required>
+                <label for="reg-password">Password:</label>
+                <input type="password" id="reg-password" required>
+                <button type="submit">Registrati</button>
+            </form>
+            <a href="#" id="open-login">Hai già un account? Accedi</a>
+        </div>
+    </div>
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+           <h2>Come Acquistare Biglietti</h2>
+        <div class="info-text">
+            <p>Acquistare i biglietti sul nostro sito è semplice! Segui questi passaggi:</p>
+            <ol>
+                <li>Esplora la nostra lista di eventi e scegli quello che ti interessa.</li>
+                <li>Clicca su <strong>"Acquista Biglietto"</strong> sotto l'evento desiderato.</li>
+                <li>Compila i dati richiesti nel modulo, come nome e cognome sul biglietto.</li>
+                <li>Aggiungi il biglietto al carrello cliccando su <strong>"Aggiungi al Carrello"</strong>.</li>
+                <li>Accedi al carrello cliccando sull'icona in alto a destra e verifica i biglietti selezionati.</li>
+                <li>Clicca su <strong>"Procedi al Pagamento"</strong> e inserisci i dati di pagamento.</li>
+                <li>Conferma l'acquisto: riceverai una conferma e potrai vedere i tuoi biglietti nella sezione <strong>"I Miei Biglietti"</strong>.</li>
+            </ol>
+
+        </div>
+    </div>
+
+        </div>
+    <div id="personal-info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Informazioni Personali</h2>
+            <p><strong>Nome:</strong> <span id="info-name"></span></p>
+            <p><strong>Cognome:</strong> <span id="info-surname"></span></p>
+            <p><strong>Email:</strong> <span id="info-email"></span></p>
+        </div>
+    </div>
+    <div id="my-tickets-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>I Miei Biglietti</h2>
+            <ul id="tickets-list"></ul>
+            <p id="no-tickets-message" class="message">Non hai ancora acquistato biglietti.</p>
+        </div>
+    </div>
+    <div id="cart-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Il tuo Carrello</h2>
+        <ul id="cart-items"></ul>
+        <p id="empty-cart-message" class="message">Il carrello è vuoto.</p>
+        <div class="cart-total-container">
+            <strong>Totale:</strong> <span id="cart-total">€0.00</span>
+        </div>
+        <div class="cart-actions">
+            <button id="clear-cart-button" class="secondary">Svuota Carrello</button>
+            <button id="checkout-button">Procedi all'acquisto</button>
+        </div>
+    </div>
+</div>
+    </div>
+    <div id="add-to-cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="event-title-display"></h2>
+            <p>Prezzo: <span id="ticket-price"></span></p>
+            <form id="add-to-cart-form">
+                <label for="ticket-name">Nome:</label>
+                <input type="text" id="ticket-name" required>
+                <label for="ticket-surname">Cognome:</label>
+                <input type="text" id="ticket-surname" required>
+                <button type="submit">Aggiungi al Carrello</button>
+            </form>
+        </div>
+    </div>
+    <div id="checkout-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Riepilogo Acquisto</h2>
+            <ul id="checkout-list"></ul>
+            <div class="cart-total-container">
+                <strong>Totale:</strong> <span id="checkout-total">€0.00</span>
+            </div>
+            <button id="proceed-to-payment">Procedi al Pagamento</button>
+        </div>
+    </div>
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Dettagli Pagamento</h2>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="card-number">Numero Carta:</label>
+                    <input type="text" id="card-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-expiry">Data Scadenza:</label>
+                    <input type="text" id="card-expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-cvv">CVV:</label>
+                    <input type="text" id="card-cvv" required>
+                </div>
+                <button type="submit">Paga Ora</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="chat-bubble" class="chat-bubble">
+        <i class="fa-solid fa-comment"></i>
+    </div>
+
+    <div id="chat-modal" class="modal chat-modal">
+        <div class="modal-content chat-content">
+            <div class="chat-header">
+                <span class="chat-title">
+                    <i class="fa-solid fa-headset"></i> Supporto
+                </span>
+                <span class="close-button chat-close-button">&times;</span>
+            </div>
+            <div class="chat-body">
+                <div class="message-bubble received">
+                    Ciao! Come posso aiutarti?
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Scrivi un messaggio...">
+                <button id="chat-send-btn">Invia</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>La Biglietteria</h4>
+      <p>Il tuo punto di riferimento per eventi e concerti.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Link Utili</h4>
+     <ul>
+  <li><a href="../chi_siamo/chi_siamo.html">Chi Siamo</a></li>
+  <li><a href="../contatti/contatti.html">Contatti</a></li>
+  <li><a href="../termini_condizioni/tremini_condizioni.html">Termini & Condizioni</a></li>
+  <li><a href="../privacy_policy/privacy_policy.html">Privacy Policy</a></li>
+</ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Seguici</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 La Biglietteria - Tutti i diritti riservati</p>
+  </div>
+</footer>
+
+
+</html>

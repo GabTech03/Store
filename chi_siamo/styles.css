@@ -1,0 +1,67 @@
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Sfondo leggero e pulito */
+    color: #1a202c;
+    line-height: 1.6;
+}
+.info-page-container {
+    max-width: 800px;
+    margin: 60px auto; /* Spaziatura superiore e inferiore aumentata per respiro */
+    padding: 40px; /* Padding aumentato */
+    background-color: #ffffff;
+    border-radius: 12px; /* Bordo più morbido */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Ombra più pronunciata ma morbida */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizione all'hover */
+}
+.info-page-container:hover {
+    transform: translateY(-5px); /* Effetto leggero di sollevamento */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+h1 {
+    color: #0056b3;
+    text-align: center;
+    border-bottom: 2px solid #0056b3;
+    padding-bottom: 15px; /* Spazio sotto il bordo aumentato */
+    margin-bottom: 30px; /* Spazio sotto il titolo aumentato */
+    font-size: 2.5rem; /* Dimensione del font maggiore */
+}
+.info-content {
+    font-size: 1.1em;
+    line-height: 1.8; /* Aumenta l'interlinea per una migliore leggibilità */
+}
+.info-content p {
+    margin-bottom: 20px;
+
+}
+.info-content strong {
+    color: #0056b3;
+    font-weight: 600; /* Leggermente più grassetto */
+}
+.back-link {
+    display: inline-block;
+    margin-top: 40px; /* Spazio superiore aumentato */
+    padding: 12px 25px;
+    background-color: #0056b3;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50px; /* Completamente arrotondato */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.back-link:hover {
+    background-color:  #007bff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente il contenuto */
+    margin-top: 40px; /* Mantieni lo spazio sopra il bottone */
+}
